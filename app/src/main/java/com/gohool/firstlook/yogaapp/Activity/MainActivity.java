@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.telecom.Call;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -90,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
         for (Course c : courseList)
         {
-            Course course = new Course(c.getId(), c.getTypeYoga(), c.getDayYoga() , c.getPriceYoga());
-//            course.setId(c.getId());
-//            course.setTypeYoga("Type of Yoga: " + c.getTypeYoga());
-//            course.setDayYoga("Day: " + c.getDayYoga());
-//            course.setPriceYoga("Price: " + c.getPriceYoga());
+            Course course = new Course();
+            course.setId(c.getId());
+            course.setTypeYoga("Type of Yoga: " + c.getTypeYoga());
+            course.setDayYoga("Day: " + c.getDayYoga());
+            course.setPriceYoga("Price: " + c.getPriceYoga());
             courseListEdit.add(course);
         }
 

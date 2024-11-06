@@ -27,10 +27,11 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_YOGA_COURSE_TABLE = "CREATE TABLE " + Constants.COURSE_TABLE_NAME + "("
-                + Constants.COURSE_KEY_ID + " INTEGER PRIMARY KEY,"
+                + Constants.COURSE_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Constants.COURSE_KEY_TYPE_YOGA + " TEXT,"
                 + Constants.COURSE_KEY_DAY_YOGA + " TEXT,"
-                + Constants.COURSE_KEY_PRICE_YOGA + " TEXT);";
+                + Constants.COURSE_KEY_PRICE_YOGA + " TEXT"
+                + ")";
 
         db.execSQL(CREATE_YOGA_COURSE_TABLE);
     }
@@ -48,12 +49,11 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
     // Add course
     public void addCourse(Course course)
     {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-
-        values.put(Constants.COURSE_KEY_DAY_YOGA, course.getDayYoga());
         values.put(Constants.COURSE_KEY_TYPE_YOGA, course.getTypeYoga());
+        values.put(Constants.COURSE_KEY_DAY_YOGA, course.getDayYoga());
         values.put(Constants.COURSE_KEY_PRICE_YOGA, course.getPriceYoga());
 
         // Insert the row
@@ -123,32 +123,23 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
                         Constants.COURSE_KEY_PRICE_YOGA},
                 null, null, null, null, Constants.COURSE_KEY_ID + " DESC", null); // ASC: ascending, DESC: descending
 
+//        Cursor cursor = db.query(Constants.COURSE_TABLE_NAME, null,
+//                null, null, null, null, null, null); // ASC: ascending, DESC: descending
+
         if (cursor.moveToFirst())
         {
             do {
                 Course course = new Course();
                 int idIndex = cursor.getColumnIndex(Constants.COURSE_KEY_ID);
-                if (idIndex >= 0)
+                int typeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TYPE_YOGA);
+                int priceYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_PRICE_YOGA);
+                if (idIndex >= 0 && typeYogaIndex >= 0 && priceYogaIndex >= 0)
                 {
                     course.setId(Integer.parseInt(cursor.getString(idIndex)));
-                }
-
-                int typeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TYPE_YOGA);
-                if (typeYogaIndex >= 0) {
                     course.setTypeYoga(cursor.getString(typeYogaIndex));
-                }
-
-                int typeDayIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DAY_YOGA);
-                if (typeDayIndex >= 0) {
-                    course.setTypeYoga(cursor.getString(typeDayIndex));
-                }
-
-                int priceYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_PRICE_YOGA);
-                if (priceYogaIndex >= 0) {
                     course.setPriceYoga(cursor.getString(priceYogaIndex));
                 }
 
-                // Add to the groceryList
                 courseList.add(course);
             } while (cursor.moveToNext());
         }

@@ -19,7 +19,7 @@
                 android:id="@+id/typeYoga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Type: "
+                android:text="Type of Yoga: Flow Yoga"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/typeYoga"
                 android:paddingTop="10dp"
-                android:text="Day:"
+                android:text="Day: Monday"
                 android:textSize="12sp"
                 android:textStyle="italic" />
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dayYoga"
                 android:paddingTop="15dp"
-                android:text="Price: "
+                android:text="Price: 300$"
                 android:textSize="12sp"
                 android:textStyle="italic" />
 

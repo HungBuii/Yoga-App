@@ -1,5 +1,6 @@
 package com.gohool.firstlook.yogaapp.UI;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,6 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     private List<Course> courseList;
     private LayoutInflater inflater;
 
-
     public MainRecyclerViewAdapter(Context context, List<Course> courseLists) {
         this.context = context;
         this.courseList = courseLists;
@@ -41,8 +41,6 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
         holder.typeYoga.setText(course.getTypeYoga());
         holder.dayYoga.setText(course.getDayYoga());
-//        holder.typeYoga.setText(String.valueOf(course.getTypeYoga()));
-//        holder.dayYoga.setText(String.valueOf(course.getDayYoga()));
         holder.priceYoga.setText(String.valueOf(course.getPriceYoga()));
     }
 
@@ -53,12 +51,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        public TextView typeYoga;
-        public TextView dayYoga;
-        public TextView priceYoga;
-        public Button editButton;
-        public Button deleteButton;
-        public Button listClasses;
+        private TextView typeYoga;
+        private TextView dayYoga;
+        private TextView priceYoga;
+        private Button editButton;
+        private Button deleteButton;
+        private Button listClasses;
 
         public ViewHolder(@NonNull View view, Context ctx) {
             super(view);
