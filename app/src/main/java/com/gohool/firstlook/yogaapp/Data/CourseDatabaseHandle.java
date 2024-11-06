@@ -85,23 +85,14 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
 
             // Get course
             int idIndex = cursor.getColumnIndex(Constants.COURSE_KEY_ID);
-            if (idIndex >= 0)
+            int typeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TYPE_YOGA);
+            int dayYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DAY_YOGA);
+            int priceYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_PRICE_YOGA);
+            if (idIndex >= 0 && typeYogaIndex >= 0 && priceYogaIndex >= 0)
             {
                 course.setId(Integer.parseInt(cursor.getString(idIndex)));
-            }
-
-            int typeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TYPE_YOGA);
-            if (typeYogaIndex >= 0) {
                 course.setTypeYoga(cursor.getString(typeYogaIndex));
-            }
-
-            int dayYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DAY_YOGA);
-            if (dayYogaIndex >= 0) {
                 course.setDayYoga(cursor.getString(dayYogaIndex));
-            }
-
-            int priceYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_PRICE_YOGA);
-            if (priceYogaIndex >= 0) {
                 course.setPriceYoga(cursor.getString(priceYogaIndex));
             }
         }
@@ -132,11 +123,13 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
                 Course course = new Course();
                 int idIndex = cursor.getColumnIndex(Constants.COURSE_KEY_ID);
                 int typeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TYPE_YOGA);
+                int dayYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DAY_YOGA);
                 int priceYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_PRICE_YOGA);
                 if (idIndex >= 0 && typeYogaIndex >= 0 && priceYogaIndex >= 0)
                 {
                     course.setId(Integer.parseInt(cursor.getString(idIndex)));
                     course.setTypeYoga(cursor.getString(typeYogaIndex));
+                    course.setDayYoga(cursor.getString(dayYogaIndex));
                     course.setPriceYoga(cursor.getString(priceYogaIndex));
                 }
 

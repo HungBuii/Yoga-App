@@ -16,12 +16,31 @@
             android:padding="15dp">
 
             <TextView
-                android:id="@+id/typeYoga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Type of Yoga: Flow Yoga"
+                android:text="Type of Yoga: "
+                android:textSize="12sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/typeYoga"
+                android:layout_width="151dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="82dp"
+                android:text="Flow Yoga"
                 android:textSize="12sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/typeYoga"
+                android:paddingTop="10dp"
+                android:text="Day: "
+                android:textSize="12sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/dayYoga"
@@ -29,7 +48,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/typeYoga"
                 android:paddingTop="10dp"
-                android:text="Day: Monday"
+                android:text="Monday"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:paddingLeft="35dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dayYoga"
+                android:paddingTop="15dp"
+                android:text="Price: "
                 android:textSize="12sp"
                 android:textStyle="italic" />
 
@@ -39,9 +68,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dayYoga"
                 android:paddingTop="15dp"
-                android:text="Price: 300$"
+                android:text="300$"
                 android:textSize="12sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:paddingLeft="35dp"/>
 
             <TableRow
                 android:layout_width="wrap_content"

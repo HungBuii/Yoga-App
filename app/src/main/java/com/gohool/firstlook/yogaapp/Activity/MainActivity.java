@@ -37,6 +37,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private CourseDatabaseHandle db;
@@ -93,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
         {
             Course course = new Course();
             course.setId(c.getId());
-            course.setTypeYoga("Type of Yoga: " + c.getTypeYoga());
-            course.setDayYoga("Day: " + c.getDayYoga());
-            course.setPriceYoga("Price: " + c.getPriceYoga());
+            course.setTypeYoga(c.getTypeYoga());
+            course.setDayYoga(c.getDayYoga());
+            course.setPriceYoga(c.getPriceYoga());
             courseListEdit.add(course);
         }
 
@@ -146,11 +147,15 @@ public class MainActivity extends AppCompatActivity {
     private void saveYogaCourseToDB(View v)
     {
         Course course = new Course();
+        Intent intent = new Intent(this, MainRecyclerViewAdapter.class);
 
         String newAddTypeYoga = addTypeYoga.getText().toString();
         String newAddDayYoga = spinnerDay.getSelectedItem().toString();
 //        String newAddDayYoga = addDayYoga.getText().toString();
         String newAddPriceYoga = addPriceYoga.getText().toString();
+
+        intent.putExtra("selected_day", newAddDayYoga);
+        startActivity(intent);
 
         course.setTypeYoga(newAddTypeYoga);
         course.setDayYoga(newAddDayYoga);
