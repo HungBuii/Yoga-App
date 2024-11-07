@@ -147,15 +147,10 @@ public class MainActivity extends AppCompatActivity {
     private void saveYogaCourseToDB(View v)
     {
         Course course = new Course();
-        Intent intent = new Intent(this, MainRecyclerViewAdapter.class);
-
         String newAddTypeYoga = addTypeYoga.getText().toString();
         String newAddDayYoga = spinnerDay.getSelectedItem().toString();
 //        String newAddDayYoga = addDayYoga.getText().toString();
         String newAddPriceYoga = addPriceYoga.getText().toString();
-
-        intent.putExtra("selected_day", newAddDayYoga);
-        startActivity(intent);
 
         course.setTypeYoga(newAddTypeYoga);
         course.setDayYoga(newAddDayYoga);
