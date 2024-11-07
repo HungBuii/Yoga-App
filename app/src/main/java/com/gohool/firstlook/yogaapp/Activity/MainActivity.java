@@ -31,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +43,18 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private CourseDatabaseHandle db;
 
-    private EditText addTypeYoga;
+    private Spinner spinnerTypeYoga;
+    ArrayAdapter adapter2;
+
     private Spinner spinnerDay;
     ArrayAdapter adapter;
+
 //    private EditText addDayYoga;
     private EditText addPriceYoga;
-    private EditText addTimeYoga;
+
+    private Spinner spinnerTime;
+    ArrayAdapter adapter1;
+
     private EditText addCapacityYoga;
     private EditText addDurationYoga;
     private EditText addDescriptionYoga;
@@ -121,16 +128,23 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.add_course, null);
 
-        addTypeYoga = (EditText) view.findViewById(R.id.addTypeYoga);
+        spinnerTypeYoga = (Spinner) view.findViewById(R.id.spinnerTypeYoga);
+        adapter2 = ArrayAdapter.createFromResource(this, R.array.spinnerTypeYoga, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTypeYoga.setAdapter(adapter2);
 
         spinnerDay = (Spinner) view.findViewById(R.id.spinnerDay);
         adapter = ArrayAdapter.createFromResource(this, R.array.spinnerDay, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDay.setAdapter(adapter);
 
-//        addDayYoga = (EditText) view.findViewById(R.id.addDayYoga);
         addPriceYoga = (EditText) view.findViewById(R.id.addPriceYoga);
-        addTimeYoga = (EditText) view.findViewById(R.id.addTimeYoga);
+
+        spinnerTime = (Spinner) view.findViewById(R.id.spinnerTime);
+        adapter1 = ArrayAdapter.createFromResource(this, R.array.spinnerTime, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTime.setAdapter(adapter1);
+
         addCapacityYoga = (EditText) view.findViewById(R.id.addCapacityYoga);
         addDurationYoga = (EditText) view.findViewById(R.id.addDurationYoga);
         addDescriptionYoga = (EditText) view.findViewById(R.id.addDescriptionYoga);
@@ -145,30 +159,61 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!addTypeYoga.getText().toString().isEmpty() &&
-                        !addPriceYoga.getText().toString().isEmpty() &&
-                        !addTimeYoga.getText().toString().isEmpty() &&
-                        !addCapacityYoga.getText().toString().isEmpty() &&
-                        !addDurationYoga.getText().toString().isEmpty() &&
-                        !addDescriptionYoga.getText().toString().isEmpty()
-                )
 
-                {
+                String priceYoga = addPriceYoga.getText().toString();
+                String capacityYoga = addCapacityYoga.getText().toString();
+                String durationYoga = addDurationYoga.getText().toString();
+                String descriptionYoga = addDescriptionYoga.getText().toString();
+
+                // Validate user input
+                boolean check = validateInfo( priceYoga,
+                        capacityYoga, durationYoga, descriptionYoga);
+                if (check) {
                     saveYogaCourseToDB(v);
                 }
-
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Sorry, Check the Information", Toast.LENGTH_SHORT).show();
+                }
             }
+
+            private Boolean validateInfo(String priceYoga, String capacityYoga, String durationYoga, String descriptionYoga)
+            {
+                if (priceYoga.length() == 0)
+                {
+                    addPriceYoga.requestFocus();
+                    addPriceYoga.setError("Please enter price");
+                    return false;
+                }
+                else if (capacityYoga.length() == 0) {
+                    addCapacityYoga.requestFocus();
+                    addCapacityYoga.setError("Please enter capacity");
+                    return false;
+                }
+                else if (durationYoga.length() == 0) {
+                    addDurationYoga.requestFocus();
+                    addDurationYoga.setError("Please enter duration");
+                    return false;
+                }
+                else if (descriptionYoga.length() == 0) {
+                    addDescriptionYoga.requestFocus();
+                    addDescriptionYoga.setError("Please enter description");
+                    return false;
+                }
+                return true;
+            }
+
         });
     }
 
     private void saveYogaCourseToDB(View v)
     {
         Course course = new Course();
-        String newAddTypeYoga = addTypeYoga.getText().toString();
+        String newAddTypeYoga = spinnerTypeYoga.getSelectedItem().toString();
         String newAddDayYoga = spinnerDay.getSelectedItem().toString();
 //        String newAddDayYoga = addDayYoga.getText().toString();
         String newAddPriceYoga = addPriceYoga.getText().toString();
-        String newAddTimeYoga = addTimeYoga.getText().toString();
+        String newAddTimeYoga = spinnerTime.getSelectedItem().toString();
         String newAddCapacityYoga = addCapacityYoga.getText().toString();
         String newAddDurationYoga = addDurationYoga.getText().toString();
         String newAddDescriptionYoga = addDescriptionYoga.getText().toString();

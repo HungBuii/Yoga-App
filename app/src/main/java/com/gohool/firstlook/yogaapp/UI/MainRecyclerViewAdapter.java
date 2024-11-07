@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -150,27 +151,35 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             View view = inflater.inflate(R.layout.edit_course, null);
 
             final TextView title = (TextView) view.findViewById(R.id.titleEditYogaCourse);
-            final EditText editTypeYoga = (EditText) view.findViewById(R.id.editTypeYoga);
+            final Spinner editSpinnerTypeYoga = (Spinner) view.findViewById(R.id.editSpinnerTypeYoga);
+            ArrayAdapter adapter2;
             final Spinner editSpinnerDay = (Spinner) view.findViewById(R.id.editSpinnerDay);
             ArrayAdapter adapter;
             final EditText editPriceYoga = (EditText) view.findViewById(R.id.editPriceYoga);
-            final EditText editTimeYoga = (EditText) view.findViewById(R.id.editTimeYoga);
+            final Spinner editSpinnerTime = (Spinner) view.findViewById(R.id.editSpinnerTime);
+            ArrayAdapter adapter1;
             final EditText editCapacityYoga = (EditText) view.findViewById(R.id.editCapacityYoga);
             final EditText editDurationYoga = (EditText) view.findViewById(R.id.editDurationYoga);
             final EditText editDescriptionYoga = (EditText) view.findViewById(R.id.editDescriptionYoga);
 
 
             title.setText("Edit Course Yoga");
-            editTypeYoga.setText(course.getTypeYoga());
             editPriceYoga.setText(course.getPriceYoga());
-            editTimeYoga.setText(course.getTimeYoga());
             editCapacityYoga.setText(course.getCapacityYoga());
             editDurationYoga.setText(course.getDurationYoga());
             editDescriptionYoga.setText(course.getDescriptionYoga());
 
+            adapter2 = ArrayAdapter.createFromResource(context, R.array.spinnerTypeYoga, android.R.layout.simple_spinner_item);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            editSpinnerTypeYoga.setAdapter(adapter2);
+
             adapter = ArrayAdapter.createFromResource(context, R.array.spinnerDay, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             editSpinnerDay.setAdapter(adapter);
+
+            adapter1 = ArrayAdapter.createFromResource(context, R.array.spinnerTime, android.R.layout.simple_spinner_item);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            editSpinnerTime.setAdapter(adapter1);
 
             Button saveButton = (Button) view.findViewById(R.id.saveEditButton);
 
@@ -185,29 +194,59 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
                     CourseDatabaseHandle db = new CourseDatabaseHandle(context);
 
                     // Update course
-                    course.setTypeYoga(editTypeYoga.getText().toString());
+                    course.setTypeYoga(editSpinnerTypeYoga.getSelectedItem().toString());
                     course.setDayYoga(editSpinnerDay.getSelectedItem().toString());
                     course.setPriceYoga(editPriceYoga.getText().toString());
-                    course.setTimeYoga(editTimeYoga.getText().toString());
+                    course.setTimeYoga(editSpinnerTime.getSelectedItem().toString());
                     course.setCapacityYoga(editCapacityYoga.getText().toString());
                     course.setDurationYoga(editDurationYoga.getText().toString());
                     course.setDescriptionYoga(editDescriptionYoga.getText().toString());
 
-                    if (!editTypeYoga.getText().toString().isEmpty() &&
-                            !editPriceYoga.getText().toString().isEmpty() &&
-                            !editTimeYoga.getText().toString().isEmpty() &&
-                            !editCapacityYoga.getText().toString().isEmpty() &&
-                            !editDurationYoga.getText().toString().isEmpty()
-                    ) {
+                    String priceYoga = editPriceYoga.getText().toString();
+                    String capacityYoga = editCapacityYoga.getText().toString();
+                    String durationYoga = editDurationYoga.getText().toString();
+                    String descriptionYoga = editDescriptionYoga.getText().toString();
+
+                    boolean check = validateInfo(priceYoga,
+                            capacityYoga, durationYoga, descriptionYoga);
+
+                    if (check) {
                         db.updateCourse(course);
                         notifyItemChanged(getAdapterPosition(), course);
                     }
                     else {
-                        Snackbar.make(view, "Added Successfully!", Snackbar.LENGTH_LONG).show();
+                        Toast.makeText(context, "Sorry, Check the Information", Toast.LENGTH_SHORT).show();
                     }
 
                     dialog.dismiss();
                 }
+
+                private Boolean validateInfo(String priceYoga, String capacityYoga, String durationYoga, String descriptionYoga)
+                {
+                    if (priceYoga.length() == 0)
+                    {
+                        editPriceYoga.requestFocus();
+                        editPriceYoga.setError("Please enter price");
+                        return false;
+                    }
+                    else if (capacityYoga.length() == 0) {
+                        editCapacityYoga.requestFocus();
+                        editCapacityYoga.setError("Please enter capacity");
+                        return false;
+                    }
+                    else if (durationYoga.length() == 0) {
+                        editDurationYoga.requestFocus();
+                        editDurationYoga.setError("Please enter duration");
+                        return false;
+                    }
+                    else if (descriptionYoga.length() == 0) {
+                        editDescriptionYoga.requestFocus();
+                        editDescriptionYoga.setError("Please enter description");
+                        return false;
+                    }
+                    return true;
+                }
+
             });
         }
 

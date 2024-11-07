@@ -33,6 +33,7 @@ public class DetailCourseActivity extends AppCompatActivity {
         detailTimeYoga = (TextView) findViewById(R.id.detailTimeYoga);
         detailCapacityYoga = (TextView) findViewById(R.id.detailCapacityYoga);
         detailDurationYoga = (TextView) findViewById(R.id.detailDurationYoga);
+        detailDescriptionYoga = (TextView) findViewById(R.id.detailDescriptionYoga);
 
         Bundle bundle = getIntent().getExtras();
 

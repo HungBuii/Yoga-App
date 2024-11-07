@@ -25,18 +25,26 @@
                 android:textStyle="italic" />
 
 
-            <EditText
-                android:id="@+id/addTypeYoga"
+            <Spinner
+                android:id="@+id/spinnerTypeYoga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/titleYogaCourse"
-                android:hint="Enter Type Yoga" />
+                android:layout_marginTop="15dp"
+                android:visibility="visible" />
+
+<!--            <EditText-->
+<!--                android:id="@+id/addTypeYoga"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/titleYogaCourse"-->
+<!--                android:hint="Enter Type Yoga" />-->
 
             <Spinner
                 android:id="@+id/spinnerDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/addTypeYoga"
+                android:layout_below="@+id/spinnerTypeYoga"
                 android:layout_marginTop="15dp"
                 android:visibility="visible" />
 
@@ -57,20 +65,28 @@
                 android:hint="Enter Price Yoga"
                 android:inputType="number" />
 
-            <EditText
-                android:id="@+id/addTimeYoga"
+            <Spinner
+                android:id="@+id/spinnerTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/addPriceYoga"
                 android:layout_marginTop="15dp"
-                android:hint="Enter Time "
-                android:inputType="datetime|time" />
+                android:visibility="visible" />
+
+<!--            <EditText-->
+<!--                android:id="@+id/addTimeYoga"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/addPriceYoga"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:hint="Enter Time "-->
+<!--                android:inputType="datetime|time" />-->
 
             <EditText
                 android:id="@+id/addCapacityYoga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/addTimeYoga"
+                android:layout_below="@+id/spinnerTime"
                 android:layout_marginTop="15dp"
                 android:hint="Enter Capacity "
                 android:inputType="number" />
