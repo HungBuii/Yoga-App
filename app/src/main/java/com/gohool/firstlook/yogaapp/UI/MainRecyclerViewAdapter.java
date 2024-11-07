@@ -3,6 +3,7 @@ package com.gohool.firstlook.yogaapp.UI;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gohool.firstlook.yogaapp.Activity.DetailCourseActivity;
 import com.gohool.firstlook.yogaapp.Activity.MainActivity;
 import com.gohool.firstlook.yogaapp.Data.CourseDatabaseHandle;
 import com.gohool.firstlook.yogaapp.Model.Course;
@@ -54,6 +56,10 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         holder.typeYoga.setText(course.getTypeYoga());
         holder.dayYoga.setText(course.getDayYoga());
         holder.priceYoga.setText(String.valueOf(course.getPriceYoga()));
+        holder.timeYoga.setText(course.getTimeYoga());
+        holder.capacityYoga.setText(course.getCapacityYoga());
+        holder.durationYoga.setText(course.getDurationYoga());
+        holder.descriptionYoga.setText(course.getDescriptionYoga());
     }
 
     @Override
@@ -66,6 +72,11 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         private TextView typeYoga;
         private TextView dayYoga;
         private TextView priceYoga;
+        private TextView timeYoga;
+        private TextView capacityYoga;
+        private TextView durationYoga;
+        private TextView descriptionYoga;
+
         private Button editButton;
         private Button deleteButton;
         private Button listClasses;
@@ -79,6 +90,11 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             typeYoga = (TextView) view.findViewById(R.id.typeYoga);
             dayYoga = (TextView) view.findViewById(R.id.dayYoga);
             priceYoga = (TextView) view.findViewById(R.id.priceYoga);
+            timeYoga = (TextView) view.findViewById(R.id.timeYoga);
+            capacityYoga = (TextView) view.findViewById(R.id.capacityYoga);
+            durationYoga = (TextView) view.findViewById(R.id.durationYoga);
+            descriptionYoga = (TextView) view.findViewById(R.id.descriptionYoga);
+
             editButton = (Button) view.findViewById(R.id.editButton);
             deleteButton = (Button) view.findViewById(R.id.deleteButton);
             listClasses = (Button) view.findViewById(R.id.listClasses);
@@ -90,7 +106,20 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // Go to next screen => DetailsActivity
+                    int position = getAdapterPosition();
+                    Course course = courseList.get(position);
+                    Intent intent = new Intent(context, DetailCourseActivity.class);
 
+                    intent.putExtra("detailTypeYoga", course.getTypeYoga());
+                    intent.putExtra("detailDayYoga", course.getDayYoga());
+                    intent.putExtra("detailPriceYoga", course.getPriceYoga());
+                    intent.putExtra("detailTimeYoga", course.getTimeYoga());
+                    intent.putExtra("detailCapacityYoga", course.getCapacityYoga());
+                    intent.putExtra("detailDurationYoga", course.getDurationYoga());
+                    intent.putExtra("detailDescriptionYoga", course.getDescriptionYoga());
+
+                    context.startActivity(intent);
                 }
             });
 
@@ -125,10 +154,19 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             final Spinner editSpinnerDay = (Spinner) view.findViewById(R.id.editSpinnerDay);
             ArrayAdapter adapter;
             final EditText editPriceYoga = (EditText) view.findViewById(R.id.editPriceYoga);
+            final EditText editTimeYoga = (EditText) view.findViewById(R.id.editTimeYoga);
+            final EditText editCapacityYoga = (EditText) view.findViewById(R.id.editCapacityYoga);
+            final EditText editDurationYoga = (EditText) view.findViewById(R.id.editDurationYoga);
+            final EditText editDescriptionYoga = (EditText) view.findViewById(R.id.editDescriptionYoga);
+
 
             title.setText("Edit Course Yoga");
             editTypeYoga.setText(course.getTypeYoga());
             editPriceYoga.setText(course.getPriceYoga());
+            editTimeYoga.setText(course.getTimeYoga());
+            editCapacityYoga.setText(course.getCapacityYoga());
+            editDurationYoga.setText(course.getDurationYoga());
+            editDescriptionYoga.setText(course.getDescriptionYoga());
 
             adapter = ArrayAdapter.createFromResource(context, R.array.spinnerDay, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -150,9 +188,17 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
                     course.setTypeYoga(editTypeYoga.getText().toString());
                     course.setDayYoga(editSpinnerDay.getSelectedItem().toString());
                     course.setPriceYoga(editPriceYoga.getText().toString());
+                    course.setTimeYoga(editTimeYoga.getText().toString());
+                    course.setCapacityYoga(editCapacityYoga.getText().toString());
+                    course.setDurationYoga(editDurationYoga.getText().toString());
+                    course.setDescriptionYoga(editDescriptionYoga.getText().toString());
 
                     if (!editTypeYoga.getText().toString().isEmpty() &&
-                            !editPriceYoga.getText().toString().isEmpty()) {
+                            !editPriceYoga.getText().toString().isEmpty() &&
+                            !editTimeYoga.getText().toString().isEmpty() &&
+                            !editCapacityYoga.getText().toString().isEmpty() &&
+                            !editDurationYoga.getText().toString().isEmpty()
+                    ) {
                         db.updateCourse(course);
                         notifyItemChanged(getAdapterPosition(), course);
                     }

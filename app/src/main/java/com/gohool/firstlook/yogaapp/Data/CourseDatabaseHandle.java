@@ -30,7 +30,11 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
                 + Constants.COURSE_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Constants.COURSE_KEY_TYPE_YOGA + " TEXT,"
                 + Constants.COURSE_KEY_DAY_YOGA + " TEXT,"
-                + Constants.COURSE_KEY_PRICE_YOGA + " TEXT"
+                + Constants.COURSE_KEY_PRICE_YOGA + " TEXT,"
+                + Constants.COURSE_KEY_TIME_YOGA + " TEXT,"
+                + Constants.COURSE_KEY_CAPACITY_YOGA + " TEXT,"
+                + Constants.COURSE_KEY_DURATION_YOGA + " TEXT,"
+                + Constants.COURSE_KEY_DESCRIPTION_YOGA + " TEXT"
                 + ")";
 
         db.execSQL(CREATE_YOGA_COURSE_TABLE);
@@ -55,6 +59,10 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
         values.put(Constants.COURSE_KEY_TYPE_YOGA, course.getTypeYoga());
         values.put(Constants.COURSE_KEY_DAY_YOGA, course.getDayYoga());
         values.put(Constants.COURSE_KEY_PRICE_YOGA, course.getPriceYoga());
+        values.put(Constants.COURSE_KEY_TIME_YOGA, course.getTimeYoga());
+        values.put(Constants.COURSE_KEY_CAPACITY_YOGA, course.getCapacityYoga());
+        values.put(Constants.COURSE_KEY_DURATION_YOGA, course.getDurationYoga());
+        values.put(Constants.COURSE_KEY_DESCRIPTION_YOGA, course.getDescriptionYoga());
 
         // Insert the row
         db.insert(Constants.COURSE_TABLE_NAME, null, values);
@@ -63,6 +71,10 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
         Log.d("Type: ", course.getTypeYoga());
         Log.d("Day: ", course.getDayYoga());
         Log.d("Price: ", course.getPriceYoga());
+        Log.d("Time: ", course.getTimeYoga());
+        Log.d("Capacity: ", course.getCapacityYoga());
+        Log.d("Duration: ", course.getDurationYoga());
+        Log.d("Description: ", course.getDescriptionYoga());
     }
 
     // Get a course
@@ -74,7 +86,11 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
                         Constants.COURSE_KEY_ID,
                         Constants.COURSE_KEY_TYPE_YOGA,
                         Constants.COURSE_KEY_DAY_YOGA,
-                        Constants.COURSE_KEY_PRICE_YOGA},
+                        Constants.COURSE_KEY_PRICE_YOGA,
+                        Constants.COURSE_KEY_TIME_YOGA,
+                        Constants.COURSE_KEY_CAPACITY_YOGA,
+                        Constants.COURSE_KEY_DURATION_YOGA,
+                        Constants.COURSE_KEY_DESCRIPTION_YOGA},
                 Constants.COURSE_KEY_ID + "=?",
                 new String[] {String.valueOf(id)}, null, null, null, null);
 
@@ -88,12 +104,21 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
             int typeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TYPE_YOGA);
             int dayYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DAY_YOGA);
             int priceYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_PRICE_YOGA);
-            if (idIndex >= 0 && typeYogaIndex >= 0 && priceYogaIndex >= 0)
+            int timeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TIME_YOGA);
+            int capacityYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_CAPACITY_YOGA);
+            int durationYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DURATION_YOGA);
+            int descriptionYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DESCRIPTION_YOGA);
+            if (idIndex >= 0 && typeYogaIndex >= 0 && priceYogaIndex >= 0 && timeYogaIndex >= 0
+                && capacityYogaIndex >= 0 && durationYogaIndex >= 0 && descriptionYogaIndex >= 0)
             {
                 course.setId(Integer.parseInt(cursor.getString(idIndex)));
                 course.setTypeYoga(cursor.getString(typeYogaIndex));
                 course.setDayYoga(cursor.getString(dayYogaIndex));
                 course.setPriceYoga(cursor.getString(priceYogaIndex));
+                course.setTimeYoga(cursor.getString(timeYogaIndex));
+                course.setCapacityYoga(cursor.getString(capacityYogaIndex));
+                course.setDurationYoga(cursor.getString(durationYogaIndex));
+                course.setDescriptionYoga(cursor.getString(descriptionYogaIndex));
             }
         }
         cursor.close();
@@ -111,7 +136,11 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
                         Constants.COURSE_KEY_ID,
                         Constants.COURSE_KEY_TYPE_YOGA,
                         Constants.COURSE_KEY_DAY_YOGA,
-                        Constants.COURSE_KEY_PRICE_YOGA},
+                        Constants.COURSE_KEY_PRICE_YOGA,
+                        Constants.COURSE_KEY_TIME_YOGA,
+                        Constants.COURSE_KEY_CAPACITY_YOGA,
+                        Constants.COURSE_KEY_DURATION_YOGA,
+                        Constants.COURSE_KEY_DESCRIPTION_YOGA},
                 null, null, null, null, Constants.COURSE_KEY_ID + " DESC", null); // ASC: ascending, DESC: descending
 
 //        Cursor cursor = db.query(Constants.COURSE_TABLE_NAME, null,
@@ -125,12 +154,21 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
                 int typeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TYPE_YOGA);
                 int dayYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DAY_YOGA);
                 int priceYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_PRICE_YOGA);
-                if (idIndex >= 0 && typeYogaIndex >= 0 && priceYogaIndex >= 0)
+                int timeYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_TIME_YOGA);
+                int capacityYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_CAPACITY_YOGA);
+                int durationYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DURATION_YOGA);
+                int descriptionYogaIndex = cursor.getColumnIndex(Constants.COURSE_KEY_DESCRIPTION_YOGA);
+                if (idIndex >= 0 && typeYogaIndex >= 0 && priceYogaIndex >= 0 && timeYogaIndex >= 0
+                        && capacityYogaIndex >= 0 && durationYogaIndex >= 0 && descriptionYogaIndex >= 0)
                 {
                     course.setId(Integer.parseInt(cursor.getString(idIndex)));
                     course.setTypeYoga(cursor.getString(typeYogaIndex));
                     course.setDayYoga(cursor.getString(dayYogaIndex));
                     course.setPriceYoga(cursor.getString(priceYogaIndex));
+                    course.setTimeYoga(cursor.getString(timeYogaIndex));
+                    course.setCapacityYoga(cursor.getString(capacityYogaIndex));
+                    course.setDurationYoga(cursor.getString(durationYogaIndex));
+                    course.setDescriptionYoga(cursor.getString(descriptionYogaIndex));
                 }
 
                 courseList.add(course);
@@ -149,6 +187,10 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
         values.put(Constants.COURSE_KEY_TYPE_YOGA, course.getTypeYoga());
         values.put(Constants.COURSE_KEY_DAY_YOGA, course.getDayYoga());
         values.put(Constants.COURSE_KEY_PRICE_YOGA, course.getPriceYoga());
+        values.put(Constants.COURSE_KEY_TIME_YOGA, course.getTimeYoga());
+        values.put(Constants.COURSE_KEY_CAPACITY_YOGA, course.getCapacityYoga());
+        values.put(Constants.COURSE_KEY_DURATION_YOGA, course.getDurationYoga());
+        values.put(Constants.COURSE_KEY_DESCRIPTION_YOGA, course.getDescriptionYoga());
 
         // update row
         return db.update(Constants.COURSE_TABLE_NAME, values, Constants.COURSE_KEY_ID + "=?",

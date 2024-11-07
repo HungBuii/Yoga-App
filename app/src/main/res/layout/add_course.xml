@@ -57,11 +57,46 @@
                 android:hint="Enter Price Yoga"
                 android:inputType="number" />
 
+            <EditText
+                android:id="@+id/addTimeYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addPriceYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Time "
+                android:inputType="datetime|time" />
+
+            <EditText
+                android:id="@+id/addCapacityYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addTimeYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Capacity "
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/addDurationYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addCapacityYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Duration "
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/addDescriptionYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addDurationYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Description "
+                android:inputType="text|textMultiLine" />
+
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/addPriceYoga"
+                android:layout_below="@id/addDescriptionYoga"
                 android:backgroundTint="#DA0379"
                 android:text="Save"
                 android:textColor="@color/white"

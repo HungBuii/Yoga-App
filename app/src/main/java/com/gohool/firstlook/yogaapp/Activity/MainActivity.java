@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter adapter;
 //    private EditText addDayYoga;
     private EditText addPriceYoga;
+    private EditText addTimeYoga;
+    private EditText addCapacityYoga;
+    private EditText addDurationYoga;
+    private EditText addDescriptionYoga;
+
     private Button saveButton;
 
     private RecyclerView recyclerCoursesView;
@@ -97,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
             course.setTypeYoga(c.getTypeYoga());
             course.setDayYoga(c.getDayYoga());
             course.setPriceYoga(c.getPriceYoga());
+            course.setTimeYoga(c.getTimeYoga());
+            course.setCapacityYoga(c.getCapacityYoga());
+            course.setDurationYoga(c.getDurationYoga());
+            course.setDescriptionYoga(c.getDescriptionYoga());
             courseListEdit.add(course);
         }
 
@@ -121,6 +130,10 @@ public class MainActivity extends AppCompatActivity {
 
 //        addDayYoga = (EditText) view.findViewById(R.id.addDayYoga);
         addPriceYoga = (EditText) view.findViewById(R.id.addPriceYoga);
+        addTimeYoga = (EditText) view.findViewById(R.id.addTimeYoga);
+        addCapacityYoga = (EditText) view.findViewById(R.id.addCapacityYoga);
+        addDurationYoga = (EditText) view.findViewById(R.id.addDurationYoga);
+        addDescriptionYoga = (EditText) view.findViewById(R.id.addDescriptionYoga);
         saveButton = (Button) view.findViewById(R.id.saveButton);
 
 
@@ -133,7 +146,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!addTypeYoga.getText().toString().isEmpty() &&
-                        !addPriceYoga.getText().toString().isEmpty()
+                        !addPriceYoga.getText().toString().isEmpty() &&
+                        !addTimeYoga.getText().toString().isEmpty() &&
+                        !addCapacityYoga.getText().toString().isEmpty() &&
+                        !addDurationYoga.getText().toString().isEmpty() &&
+                        !addDescriptionYoga.getText().toString().isEmpty()
                 )
 
                 {
@@ -151,10 +168,18 @@ public class MainActivity extends AppCompatActivity {
         String newAddDayYoga = spinnerDay.getSelectedItem().toString();
 //        String newAddDayYoga = addDayYoga.getText().toString();
         String newAddPriceYoga = addPriceYoga.getText().toString();
+        String newAddTimeYoga = addTimeYoga.getText().toString();
+        String newAddCapacityYoga = addCapacityYoga.getText().toString();
+        String newAddDurationYoga = addDurationYoga.getText().toString();
+        String newAddDescriptionYoga = addDescriptionYoga.getText().toString();
 
         course.setTypeYoga(newAddTypeYoga);
         course.setDayYoga(newAddDayYoga);
         course.setPriceYoga(newAddPriceYoga);
+        course.setTimeYoga(newAddTimeYoga);
+        course.setCapacityYoga(newAddCapacityYoga);
+        course.setDurationYoga(newAddDurationYoga);
+        course.setDescriptionYoga(newAddDescriptionYoga);
 
         // Save to db
         db.addCourse(course);

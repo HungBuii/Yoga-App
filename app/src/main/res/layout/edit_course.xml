@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:text="Add a New Yoga Course"
+                android:text="Edit a New Yoga Course"
                 android:textSize="18sp"
                 android:textStyle="italic" />
 
@@ -57,11 +57,46 @@
                 android:hint="Enter Price Yoga"
                 android:inputType="number" />
 
+            <EditText
+                android:id="@+id/editTimeYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editPriceYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Time "
+                android:inputType="datetime|time" />
+
+            <EditText
+                android:id="@+id/editCapacityYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTimeYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Capacity "
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/editDurationYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editCapacityYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Duration "
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editDescriptionYoga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editDurationYoga"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Description "
+                android:inputType="text|textMultiLine" />
+
             <Button
                 android:id="@+id/saveEditButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editPriceYoga"
+                android:layout_below="@id/editDescriptionYoga"
                 android:backgroundTint="#DA0379"
                 android:text="Save"
                 android:textColor="@color/white"

@@ -73,6 +73,87 @@
                 android:textStyle="italic"
                 android:paddingLeft="35dp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/priceYoga"
+                android:paddingTop="15dp"
+                android:text="Time: "
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/timeYoga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/priceYoga"
+                android:inputType="datetime|time"
+                android:paddingLeft="35dp"
+                android:paddingTop="15dp"
+                android:text="11:00"
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timeYoga"
+                android:paddingTop="15dp"
+                android:text="Capacity: "
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/capacityYoga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timeYoga"
+                android:paddingTop="15dp"
+                android:text="110"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:paddingLeft="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/capacityYoga"
+                android:paddingTop="15dp"
+                android:text="Duration: "
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/durationYoga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/capacityYoga"
+                android:paddingTop="15dp"
+                android:text="60 mins"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:paddingLeft="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/durationYoga"
+                android:paddingTop="15dp"
+                android:text="Description: "
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/descriptionYoga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/durationYoga"
+                android:paddingLeft="68dp"
+                android:paddingTop="15dp"
+                android:text="Nuwng Loz Qua"
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
