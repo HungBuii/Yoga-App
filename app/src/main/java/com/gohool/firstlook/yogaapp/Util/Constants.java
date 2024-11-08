@@ -19,15 +19,15 @@ public class Constants
 
 
 //    // Class Yoga Course DB
-//    public static final String CLASS_INSTANCE_DB_NAME = "ClassYogaDB";
-//    public static final String CLASS_INSTANCE_TABLE_NAME = "ClassInstanceTBL";
+    public static final String CLASS_INSTANCE_DB_NAME = "ClassYogaDB";
+    public static final String CLASS_INSTANCE_TABLE_NAME = "ClassInstanceTBL";
 //
 //    // Table columns Class DB
-//    public static final String CLASS_INSTANCE_KEY_ID = "id";
-//    public static final String CLASS_INSTANCE_KEY_COURSE_ID = "course_id";
-//    public static final String CLASS_INSTANCE_KEY_TEACHER_NAME = "teacher_name";
-//    public static final String CLASS_INSTANCE_KEY_CLASS_DATE = "class_date";
-//    public static final String CLASS_INSTANCE_KEY_COMMENT = "comments";
+    public static final String CLASS_INSTANCE_KEY_ID = "id";
+    public static final String CLASS_INSTANCE_KEY_COURSE_ID = "course_id";
+    public static final String CLASS_INSTANCE_KEY_TEACHER_NAME = "teacher_name";
+    public static final String CLASS_INSTANCE_KEY_CLASS_DATE = "class_date";
+    public static final String CLASS_INSTANCE_KEY_COMMENT = "comments";
 
 
 }

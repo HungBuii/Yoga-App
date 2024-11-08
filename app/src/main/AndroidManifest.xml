@@ -13,6 +13,9 @@
         android:theme="@style/Theme.YogaApp"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ClassInstanceActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.DetailCourseActivity"
             android:exported="false" />
         <activity

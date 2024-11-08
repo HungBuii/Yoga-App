@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gohool.firstlook.yogaapp.Activity.ClassInstanceActivity;
 import com.gohool.firstlook.yogaapp.Activity.DetailCourseActivity;
 import com.gohool.firstlook.yogaapp.Activity.MainActivity;
 import com.gohool.firstlook.yogaapp.Data.CourseDatabaseHandle;
@@ -140,12 +141,16 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             if (v.getId() == R.id.deleteButton) {
                 deleteButton(course.getId());
             }
+
+            if (v.getId() == R.id.listClasses)
+            {
+                changeClassActivity(course.getId());
+            }
         }
 
         public void editButton(Course course)
         {
             alertDialogBuilder = new AlertDialog.Builder(context);
-            MainActivity mainActivity = new MainActivity();
 
             inflater = LayoutInflater.from(context);
             View view = inflater.inflate(R.layout.edit_course, null);
@@ -283,6 +288,13 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
                 }
             });
+        }
+
+        public void changeClassActivity(int id)
+        {
+            Intent intent = new Intent(context, ClassInstanceActivity.class);
+            intent.putExtra("course_id", id);
+            context.startActivity(intent);
         }
 
     }

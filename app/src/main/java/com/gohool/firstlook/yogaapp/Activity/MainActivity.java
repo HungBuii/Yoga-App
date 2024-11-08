@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button saveButton;
 
+
+
     private RecyclerView recyclerCoursesView;
     private MainRecyclerViewAdapter mainRecyclerViewAdapter;
     private List<Course> courseList;
