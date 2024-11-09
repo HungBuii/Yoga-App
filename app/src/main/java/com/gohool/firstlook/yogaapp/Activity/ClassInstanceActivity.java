@@ -130,9 +130,9 @@ public class ClassInstanceActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.add_class, null);
 
-        addDateClass = (EditText) findViewById(R.id.addDateClass);
-        addTeacherClass = (EditText) findViewById(R.id.addTeacherClass);
-        addCommentClass = (EditText) findViewById(R.id.addCommentClass);
+        addDateClass = (EditText) view.findViewById(R.id.addDateClass);
+        addTeacherClass = (EditText) view.findViewById(R.id.addTeacherClass);
+        addCommentClass = (EditText) view.findViewById(R.id.addCommentClass);
         saveButtonClass = (Button) view.findViewById(R.id.saveButtonClass);
 
 
