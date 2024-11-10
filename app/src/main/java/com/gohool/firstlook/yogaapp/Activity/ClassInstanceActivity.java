@@ -1,5 +1,6 @@
 package com.gohool.firstlook.yogaapp.Activity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,11 +32,13 @@ import com.gohool.firstlook.yogaapp.Model.Course;
 import com.gohool.firstlook.yogaapp.R;
 import com.gohool.firstlook.yogaapp.UI.ClassRecyclerViewAdapter;
 import com.gohool.firstlook.yogaapp.UI.MainRecyclerViewAdapter;
+import com.gohool.firstlook.yogaapp.Util.DateUtil;
 import com.gohool.firstlook.yogaapp.databinding.ActivityClassInstanceBinding;
 import com.gohool.firstlook.yogaapp.databinding.ActivityMainBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ClassInstanceActivity extends AppCompatActivity {
@@ -57,13 +60,13 @@ public class ClassInstanceActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityClassInstanceBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         int course_id = 0;
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null)
-        {
+        if (bundle != null) {
             course_id = bundle.getInt("course_id");
         }
 
@@ -85,8 +88,7 @@ public class ClassInstanceActivity extends AppCompatActivity {
 
                 int course_id = 0;
                 Bundle bundle = getIntent().getExtras();
-                if (bundle != null)
-                {
+                if (bundle != null) {
                     course_id = bundle.getInt("course_id");
                 }
 
@@ -107,8 +109,7 @@ public class ClassInstanceActivity extends AppCompatActivity {
 
         classYogaList = db.getAllClassYoga(course_id);
 
-        for (ClassYoga c : classYogaList)
-        {
+        for (ClassYoga c : classYogaList) {
             ClassYoga classYoga = new ClassYoga();
             classYoga.setId(c.getId());
             classYoga.setCourse_id(c.getCourse_id());
@@ -125,8 +126,7 @@ public class ClassInstanceActivity extends AppCompatActivity {
 
     }
 
-    private void createAddClassPopupDialog(int course_id)
-    {
+    private void createAddClassPopupDialog(int course_id) {
         dialogBuilder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.add_class, null);
 
@@ -134,6 +134,27 @@ public class ClassInstanceActivity extends AppCompatActivity {
         addTeacherClass = (EditText) view.findViewById(R.id.addTeacherClass);
         addCommentClass = (EditText) view.findViewById(R.id.addCommentClass);
         saveButtonClass = (Button) view.findViewById(R.id.saveButtonClass);
+
+        final Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        addDateClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ClassInstanceActivity.this, (view, year1, month1, dayOfMonth) -> {
+                    month1 = month1 + 1;
+                    String date = dayOfMonth + "/" + month1 + "/" + year1;
+                    addDateClass.setText(date);
+
+                }, year, month, day);
+                datePickerDialog.show();
+
+            }
+
+
+        });
 
 
         dialogBuilder.setView(view);
@@ -145,30 +166,28 @@ public class ClassInstanceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String dateClass = addDateClass.getText().toString();
+                String dateClass = addDateClass.getText().toString().trim();
                 String teacherClass = addTeacherClass.getText().toString();
 
                 // Validate user input
                 boolean check = validateInfo(dateClass, teacherClass);
                 if (check) {
                     saveClassToDB(v, course_id);
+                    Toast.makeText(ClassInstanceActivity.this, "The date matches the day of the week!", Toast.LENGTH_SHORT).show();
 //                    Log.d("Hello", "hello");
-                }
-                else
-                {
+                } else {
                     Toast.makeText(ClassInstanceActivity.this, "Sorry, Check the Information Class", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ClassInstanceActivity.this, "The date does not match the day of the week!", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
-            private Boolean validateInfo(String dateClass, String teacherClass)
-            {
-                if (dateClass.length() == 0)
-                {
+            private Boolean validateInfo(String dateClass, String teacherClass) {
+                if (dateClass.length() == 0) {
                     addDateClass.requestFocus();
                     addDateClass.setError("Please enter date");
                     return false;
-                }
-                else if (teacherClass.length() == 0) {
+                } else if (teacherClass.length() == 0) {
                     addTeacherClass.requestFocus();
                     addTeacherClass.setError("Please enter teacher name");
                     return false;
@@ -176,14 +195,24 @@ public class ClassInstanceActivity extends AppCompatActivity {
                 return true;
             }
 
+//            public Boolean checkDay() {
+//                Course course = new Course();
+//                if (course.getId() == course_id) {
+//                    String day = course.getDayYoga();
+//                    String newAddDateClass = addDateClass.getText().toString().trim();
+//                    boolean checkDateVsDay = DateUtil.isDateMatchingDayOfWeek("11/11/2024", "Monday");
+//                    if (checkDateVsDay) return true;
+//                }
+//                return false;
+//            }
+
         });
     }
 
-    private void saveClassToDB(View v, int course_id)
-    {
+    private void saveClassToDB(View v, int course_id) {
         ClassYoga classYoga = new ClassYoga();
 
-        String newAddDateClass = addDateClass.getText().toString();
+        String newAddDateClass = addDateClass.getText().toString().trim();
         String newAddTeacherClass = addTeacherClass.getText().toString();
         String newAddCommentClass = addCommentClass.getText().toString();
 

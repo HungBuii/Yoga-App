@@ -217,4 +217,11 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
+    // Detele table
+    public void deleteDataCourseTable()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.COURSE_TABLE_NAME, null, null);
+    }
+
 }

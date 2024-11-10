@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.gohool.firstlook.yogaapp.Data.ClassDatabaseHandle;
 import com.gohool.firstlook.yogaapp.Data.CourseDatabaseHandle;
 import com.gohool.firstlook.yogaapp.Model.Course;
 import com.gohool.firstlook.yogaapp.R;
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private CourseDatabaseHandle db;
+    private CourseDatabaseHandle dbCourse;
+    private ClassDatabaseHandle dbClass;
 
     private Spinner spinnerTypeYoga;
     ArrayAdapter adapter2;
@@ -97,14 +99,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerCoursesView = (RecyclerView) findViewById(R.id.recyclerCoursesView);
         courseList = new ArrayList<>();
         courseListEdit = new ArrayList<>();
-        db = new CourseDatabaseHandle(this);
+        dbCourse = new CourseDatabaseHandle(this);
+        dbClass = new ClassDatabaseHandle(this);
 
 
         // Show list courses
         recyclerCoursesView.setHasFixedSize(true);
         recyclerCoursesView.setLayoutManager(new LinearLayoutManager(this));
 
-        courseList = db.getAllCourses();
+        courseList = dbCourse.getAllCourses();
 
         for (Course c : courseList)
         {
@@ -231,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
         course.setDescriptionYoga(newAddDescriptionYoga);
 
         // Save to db
-        db.addCourse(course);
+        dbCourse.addCourse(course);
         Snackbar.make(v, "Course saved", Snackbar.LENGTH_LONG).show();
 
         new Handler().postDelayed(new Runnable() {
@@ -260,7 +263,29 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.delete_course_db) {
-            
+            dbCourse.deleteDataCourseTable();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, 1000);
+            return true;
+        }
+
+        if (id == R.id.delete_class_db)
+        {
+            dbClass.deleteDataClassTable();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, 1000);
             return true;
         }
 

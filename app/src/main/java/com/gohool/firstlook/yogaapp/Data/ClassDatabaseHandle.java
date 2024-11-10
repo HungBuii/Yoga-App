@@ -188,4 +188,11 @@ public class ClassDatabaseHandle extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
+    // Delete data class
+    public void deleteDataClassTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.CLASS_INSTANCE_TABLE_NAME, null, null);
+        db.close();
+    }
+
 }

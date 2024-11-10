@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/titleDateClass"
                 android:layout_marginTop="15dp"
-                android:hint="Enter Date"
-                android:inputType="number" />
+                android:hint="DD/MM/YYYY"
+                android:inputType="datetime|date" />
 
             <TextView
                 android:id="@+id/titleTeacherClass"
