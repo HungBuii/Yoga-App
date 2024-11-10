@@ -106,11 +106,11 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
             int position = getAdapterPosition();
             ClassYoga classYoga = classYogaList.get(position);
 
-            if (v.getId() == R.id.editButton) {
+            if (v.getId() == R.id.editButtonClass) {
                 editButtonClass(classYoga);
             }
 
-            if (v.getId() == R.id.deleteButton) {
+            if (v.getId() == R.id.deleteButtonClass) {
                 deleteButtonClass(classYoga.getId());
             }
         }

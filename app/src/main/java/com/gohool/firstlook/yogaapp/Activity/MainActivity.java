@@ -1,12 +1,14 @@
 package com.gohool.firstlook.yogaapp.Activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.gohool.firstlook.yogaapp.Data.CourseDatabaseHandle;
 import com.gohool.firstlook.yogaapp.Model.Course;
 import com.gohool.firstlook.yogaapp.R;
 import com.gohool.firstlook.yogaapp.UI.MainRecyclerViewAdapter;
+import com.gohool.firstlook.yogaapp.Util.Constants;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -257,7 +259,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.delete_course_db) {
+            
             return true;
         }
 

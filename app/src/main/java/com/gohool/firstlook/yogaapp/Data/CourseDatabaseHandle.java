@@ -141,7 +141,7 @@ public class CourseDatabaseHandle extends SQLiteOpenHelper {
                         Constants.COURSE_KEY_CAPACITY_YOGA,
                         Constants.COURSE_KEY_DURATION_YOGA,
                         Constants.COURSE_KEY_DESCRIPTION_YOGA},
-                null, null, null, null, Constants.COURSE_KEY_ID + " DESC", null); // ASC: ascending, DESC: descending
+                null, null, null, null, Constants.COURSE_KEY_ID + " ASC", null); // ASC: ascending, DESC: descending
 
 //        Cursor cursor = db.query(Constants.COURSE_TABLE_NAME, null,
 //                null, null, null, null, null, null); // ASC: ascending, DESC: descending

@@ -200,7 +200,7 @@ public class ClassInstanceActivity extends AppCompatActivity {
             @Override
             public void run() {
                 dialog.dismiss();
-                startActivity(new Intent(ClassInstanceActivity.this, DetailCourseActivity.class));
+                startActivity(new Intent(ClassInstanceActivity.this, MainActivity.class));
                 finish();
             }
         }, 1000);
@@ -221,9 +221,9 @@ public class ClassInstanceActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
