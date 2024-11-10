@@ -115,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
             course.setId(c.getId());
             course.setTypeYoga(c.getTypeYoga());
             course.setDayYoga(c.getDayYoga());
-            course.setPriceYoga(c.getPriceYoga());
+            course.setPriceYoga(c.getPriceYoga() + "$");
             course.setTimeYoga(c.getTimeYoga());
             course.setCapacityYoga(c.getCapacityYoga());
-            course.setDurationYoga(c.getDurationYoga());
+            course.setDurationYoga(c.getDurationYoga() + " mins");
             course.setDescriptionYoga(c.getDescriptionYoga());
             courseListEdit.add(course);
         }
