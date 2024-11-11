@@ -1,5 +1,6 @@
 package com.gohool.firstlook.yogaapp.UI;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.gohool.firstlook.yogaapp.Data.CourseDatabaseHandle;
 import com.gohool.firstlook.yogaapp.Model.ClassYoga;
 import com.gohool.firstlook.yogaapp.Model.Course;
 import com.gohool.firstlook.yogaapp.R;
+import com.gohool.firstlook.yogaapp.Util.DateUtil;
 
 import java.util.Calendar;
 import java.util.List;
@@ -134,20 +137,34 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
             final int year = calendar.get(Calendar.YEAR);
             final int month = calendar.get(Calendar.MONTH);
             final int day = calendar.get(Calendar.DAY_OF_MONTH);
-            final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+            int course_id = classYoga.getCourse_id();
             editDateClass.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(context, (view, year1, month1, dayOfMonth) -> {
-                        month1 = month1 + 1;
-                        String date = dayOfMonth + "/" + month1 + "/" + year1;
-                        editDateClass.setText(date);
-
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            CourseDatabaseHandle courseDB = new CourseDatabaseHandle(context);
+                            if (courseDB.getCourse(course_id) != null)
+                            {
+                                Course course = courseDB.getCourse(course_id);
+                                String dayCourse = course.getDayYoga();
+                                String day_of_the_week_class = DateUtil.showDayOfTheWeek(dayOfMonth, month + 1, year);
+                                if(!day_of_the_week_class.equals(dayCourse)) {
+                                    Toast.makeText(context, "The date does not match the day of the week!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                @SuppressLint("DefaultLocale") String date = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year);
+                                Toast.makeText(context, "Select date: " + date, Toast.LENGTH_SHORT).show();
+                                editDateClass.setText(date);
+                            }
+                        }
                     }, year, month, day);
                     datePickerDialog.show();
-
                 }
             });
+
             editTeacherClass.setText(classYoga.getTeacherName());
             editCommentClass.setText(classYoga.getComment());
 
