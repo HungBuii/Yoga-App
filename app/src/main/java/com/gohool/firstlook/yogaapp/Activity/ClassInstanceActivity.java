@@ -173,7 +173,6 @@ public class ClassInstanceActivity extends AppCompatActivity {
                     saveClassToDB(v, course_id);
                     Toast.makeText(ClassInstanceActivity.this, "Saved Class to DB!", Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(ClassInstanceActivity.this, "The date matches the day of the week!", Toast.LENGTH_SHORT).show();
-//                    Log.d("Hello", "hello");
                 } else {
                     Toast.makeText(ClassInstanceActivity.this, "Sorry, Check the Information Class", Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(ClassInstanceActivity.this, "The date does not match the day of the week!", Toast.LENGTH_SHORT).show();
