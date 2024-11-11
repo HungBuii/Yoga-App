@@ -152,8 +152,6 @@ public class ClassInstanceActivity extends AppCompatActivity {
                 datePickerDialog.show();
 
             }
-
-
         });
 
 

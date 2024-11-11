@@ -1,6 +1,7 @@
 package com.gohool.firstlook.yogaapp.UI;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gohool.firstlook.yogaapp.Activity.ClassInstanceActivity;
 import com.gohool.firstlook.yogaapp.Activity.DetailCourseActivity;
 import com.gohool.firstlook.yogaapp.Data.ClassDatabaseHandle;
 import com.gohool.firstlook.yogaapp.Data.CourseDatabaseHandle;
@@ -23,6 +25,7 @@ import com.gohool.firstlook.yogaapp.Model.ClassYoga;
 import com.gohool.firstlook.yogaapp.Model.Course;
 import com.gohool.firstlook.yogaapp.R;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecyclerViewAdapter.ViewHolder> {
@@ -127,7 +130,24 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
             final EditText editCommentClass = (EditText) view.findViewById(R.id.editCommentClass);
 
             title.setText("Edit Class Yoga");
-            editDateClass.setText(classYoga.getClassDate());
+            final Calendar calendar = Calendar.getInstance();
+            final int year = calendar.get(Calendar.YEAR);
+            final int month = calendar.get(Calendar.MONTH);
+            final int day = calendar.get(Calendar.DAY_OF_MONTH);
+            final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            editDateClass.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(context, (view, year1, month1, dayOfMonth) -> {
+                        month1 = month1 + 1;
+                        String date = dayOfMonth + "/" + month1 + "/" + year1;
+                        editDateClass.setText(date);
+
+                    }, year, month, day);
+                    datePickerDialog.show();
+
+                }
+            });
             editTeacherClass.setText(classYoga.getTeacherName());
             editCommentClass.setText(classYoga.getComment());
 
@@ -144,12 +164,12 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
                     ClassDatabaseHandle db = new ClassDatabaseHandle(context);
 
                     // Update class
-                    classYoga.setClassDate(editDateClass.getText().toString());
+                    classYoga.setClassDate(editDateClass.getText().toString().trim());
                     classYoga.setTeacherName(editTeacherClass.getText().toString());
                     classYoga.setComment(editCommentClass.getText().toString());
 
 
-                    String dateClass = editDateClass.getText().toString();
+                    String dateClass = editDateClass.getText().toString().trim();
                     String teacherClass = editTeacherClass.getText().toString();
 
                     boolean check = validateInfo(dateClass, teacherClass);
