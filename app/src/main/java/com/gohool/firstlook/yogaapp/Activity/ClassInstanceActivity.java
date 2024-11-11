@@ -1,5 +1,6 @@
 package com.gohool.firstlook.yogaapp.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -139,18 +141,29 @@ public class ClassInstanceActivity extends AppCompatActivity {
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
-        final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         addDateClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ClassInstanceActivity.this, (view, year1, month1, dayOfMonth) -> {
-                    month1 = month1 + 1;
-                    String date = dayOfMonth + "/" + month1 + "/" + year1;
-                    addDateClass.setText(date);
-
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ClassInstanceActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        CourseDatabaseHandle courseDB = new CourseDatabaseHandle(ClassInstanceActivity.this);
+                        if (courseDB.getCourse(course_id) != null)
+                        {
+                            Course course = courseDB.getCourse(course_id);
+                            String dayCourse = course.getDayYoga();
+                            String day_of_the_week_class = DateUtil.showDayOfTheWeek(dayOfMonth, month + 1, year);
+                            if(!day_of_the_week_class.equals(dayCourse)) {
+                                Toast.makeText(ClassInstanceActivity.this, "The date does not match the day of the week!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            @SuppressLint("DefaultLocale") String date = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year);
+                            Toast.makeText(ClassInstanceActivity.this, "Select date: " + date, Toast.LENGTH_SHORT).show();
+                            addDateClass.setText(date);
+                        }
+                    }
                 }, year, month, day);
                 datePickerDialog.show();
-
             }
         });
 
@@ -172,10 +185,8 @@ public class ClassInstanceActivity extends AppCompatActivity {
                 if (check) {
                     saveClassToDB(v, course_id);
                     Toast.makeText(ClassInstanceActivity.this, "Saved Class to DB!", Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(ClassInstanceActivity.this, "The date matches the day of the week!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ClassInstanceActivity.this, "Sorry, Check the Information Class", Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(ClassInstanceActivity.this, "The date does not match the day of the week!", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -192,17 +203,6 @@ public class ClassInstanceActivity extends AppCompatActivity {
                 }
                 return true;
             }
-
-//            public Boolean checkDay() {
-//                Course course = new Course();
-//                if (course.getId() == course_id) {
-//                    String day = course.getDayYoga();
-//                    String newAddDateClass = addDateClass.getText().toString().trim();
-//                    boolean checkDateVsDay = DateUtil.isDateMatchingDayOfWeek("11/11/2024", "Monday");
-//                    if (checkDateVsDay) return true;
-//                }
-//                return false;
-//            }
 
         });
     }

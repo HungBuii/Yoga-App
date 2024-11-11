@@ -11,15 +11,27 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    public static boolean isDateMatchingDayOfWeek(String dateString, String dayOfWeekString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.getDefault());
-        LocalDate date = LocalDate.parse(dateString, formatter);
-
-        DayOfWeek actualDayOfWeek = date.getDayOfWeek();
-        DayOfWeek expectedDayOfWeek = DayOfWeek.valueOf(dayOfWeekString.toUpperCase());
-
-        return actualDayOfWeek == expectedDayOfWeek;
+    public static String showDayOfTheWeek(int day, int month, int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, day);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (dayOfWeek) {
+            case Calendar.SUNDAY:
+                return "Sunday";
+            case Calendar.MONDAY:
+                return "Monday";
+            case Calendar.TUESDAY:
+                return "Tuesday";
+            case Calendar.WEDNESDAY:
+                return "Wednesday";
+            case Calendar.THURSDAY:
+                return "Thursday";
+            case Calendar.FRIDAY:
+                return "Friday";
+            case Calendar.SATURDAY:
+                return "Saturday";
+            default:
+                return "Unknown";
+        }
     }
-
-
 }
