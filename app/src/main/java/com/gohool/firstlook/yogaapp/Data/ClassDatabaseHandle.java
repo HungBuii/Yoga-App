@@ -188,6 +188,45 @@ public class ClassDatabaseHandle extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
+    // Search class by teacher name
+    public List<ClassYoga> searchClassYoga(String teacherName)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        List<ClassYoga> classYogaList = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + Constants.CLASS_INSTANCE_TABLE_NAME +
+                " WHERE " + Constants.CLASS_INSTANCE_KEY_TEACHER_NAME + " LIKE ?",
+                new String[] {"%" + teacherName + "%"});
+
+        if (cursor.moveToFirst())
+        {
+            do {
+                ClassYoga classYoga = new ClassYoga();
+                int idIndex = cursor.getColumnIndex(Constants.CLASS_INSTANCE_KEY_ID);
+                int courseIDIndex = cursor.getColumnIndex(Constants.CLASS_INSTANCE_KEY_COURSE_ID);
+                int teacherNameIndex = cursor.getColumnIndex(Constants.CLASS_INSTANCE_KEY_TEACHER_NAME);
+                int dateClassIndex = cursor.getColumnIndex(Constants.CLASS_INSTANCE_KEY_CLASS_DATE);
+                int commentClassIndex = cursor.getColumnIndex(Constants.CLASS_INSTANCE_KEY_COMMENT);
+                if (idIndex >= 0
+                        && courseIDIndex >= 0
+                        && teacherNameIndex >= 0 && dateClassIndex >= 0
+                        && commentClassIndex >= 0 )
+                {
+                    classYoga.setId(Integer.parseInt(cursor.getString(idIndex)));
+                    classYoga.setCourse_id(Integer.parseInt(cursor.getString(courseIDIndex)));
+                    classYoga.setTeacherName(cursor.getString(teacherNameIndex));
+                    classYoga.setClassDate(cursor.getString(dateClassIndex));
+                    classYoga.setComment(cursor.getString(commentClassIndex));
+                }
+
+                classYogaList.add(classYoga);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return classYogaList;
+    }
+
     // Delete data class
     public void deleteDataClassTable() {
         SQLiteDatabase db = this.getWritableDatabase();

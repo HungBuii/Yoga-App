@@ -289,6 +289,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.search_class_by_teacher_name)
+        {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+//                    dialog.dismiss();
+                    startActivity(new Intent(MainActivity.this, SearchClassByTeacherName.class));
+                    finish();
+                }
+            }, 1000);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

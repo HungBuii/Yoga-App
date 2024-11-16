@@ -14,4 +14,10 @@
         android:title="Delete Class DB"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/search_class_by_teacher_name"
+        android:orderInCategory="100"
+        android:title="Search class by teacher name"
+        app:showAsAction="never" />
+
 </menu>
