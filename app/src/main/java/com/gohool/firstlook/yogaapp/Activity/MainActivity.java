@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.dismiss();
+//                    dialog.dismiss();
                     startActivity(new Intent(MainActivity.this, MainActivity.class));
                     finish();
                 }
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.dismiss();
+//                    dialog.dismiss();
                     startActivity(new Intent(MainActivity.this, MainActivity.class));
                     finish();
                 }
