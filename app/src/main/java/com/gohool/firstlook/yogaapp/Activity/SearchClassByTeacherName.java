@@ -33,7 +33,6 @@ public class SearchClassByTeacherName extends AppCompatActivity {
     private ClassDatabaseHandle dbClass;
     private EditText searchBarClass;
     private Button searchClassButton;
-    private Button resetSearchButton;
     private Button backToMainButton;
 
     private RecyclerView recyclerSearchClassesView;
@@ -62,7 +61,6 @@ public class SearchClassByTeacherName extends AppCompatActivity {
         dbClass = new ClassDatabaseHandle(this);
         searchBarClass = (EditText) findViewById(R.id.searchBarClass);
         searchClassButton = (Button) findViewById(R.id.searchClassButton);
-        resetSearchButton = (Button) findViewById(R.id.resetSearchButton);
         backToMainButton = (Button) findViewById(R.id.backButton);
 
         // Show list courses
@@ -73,29 +71,12 @@ public class SearchClassByTeacherName extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String teacherName = searchBarClass.getText().toString().trim();
+                classYogaListEdit.clear();
                 classYogaList = dbClass.searchClassYoga(teacherName);
-                if (classYogaList != null) {
-                    for (ClassYoga c : classYogaList) {
-                        ClassYoga classYoga = new ClassYoga();
-                        classYoga.setId(c.getId());
-                        classYoga.setCourse_id(c.getCourse_id());
-                        classYoga.setClassDate(c.getClassDate());
-                        classYoga.setTeacherName(c.getTeacherName());
-                        classYoga.setComment(c.getComment());
-
-                        classYogaListEdit.add(classYoga);
-                    }
-                }
+                classYogaListEdit.addAll(classYogaList);
                 searchClassRecyclerViewAdapter = new SearchClassRecyclerViewAdapter(SearchClassByTeacherName.this, classYogaListEdit);
                 recyclerSearchClassesView.setAdapter(searchClassRecyclerViewAdapter);
                 searchClassRecyclerViewAdapter.notifyDataSetChanged();
-            }
-        });
-
-        resetSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SearchClassByTeacherName.this, SearchClassByTeacherName.class));
             }
         });
 
